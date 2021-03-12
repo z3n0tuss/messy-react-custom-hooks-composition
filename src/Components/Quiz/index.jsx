@@ -12,7 +12,6 @@ const Quiz = () => {
         const randomQuestions = get('questions').data
         const allAnswers = get('answers').data
 
-        // combine questions and answers
         const _questions = randomQuestions.map(question => ({
             ...question,
             selectedOption: question.options[0].id,

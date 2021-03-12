@@ -1,9 +1,9 @@
-import ComplexComponent from "./Components/ComplexComponent";
+import Quiz from "./Components/Quiz";
 
 function App() {
   return (
     <div className="App">
-      <ComplexComponent />
+      <Quiz />
     </div>
   );
 }
