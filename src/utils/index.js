@@ -160,14 +160,14 @@ const questions = [
 
 export function get(url) {
     if (url === 'questions') {
-        return {
+        return Promise.resolve({
             data: questions.sort(() => .5 - Math.random()).slice(0, 3)
-        }
+        })
     }
 
     if (url === 'answers') {
-        return {
+        return Promise.resolve({
             data: answers
-        }
+        })
     }
 };

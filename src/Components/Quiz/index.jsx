@@ -1,6 +1,5 @@
 import React from 'react'
 import { get } from '../../utils'
-import QuestionOption from '../QuestionOption'
 
 import './index.css'
 
@@ -9,16 +8,18 @@ const Quiz = () => {
     const [score, setScore] = React.useState(null)
 
     React.useEffect(() => {
-        const randomQuestions = get('questions').data
-        const allAnswers = get('answers').data
+        (async function() {
+            const randomQuestions = await get('questions')
+            const allAnswers = await get('answers')
 
-        const _questions = randomQuestions.map(question => ({
-            ...question,
-            selectedOption: question.options[0].id,
-            answer: allAnswers.find(answer => answer.id === question.id).answer
-        }))
+            const _questions = randomQuestions.data.map(question => ({
+                ...question,
+                selectedOption: question.options[0].id,
+                answer: allAnswers.data.find(answer => answer.id === question.id).answer
+            }))
 
-        setQuestions(_questions)
+            setQuestions(_questions)
+        })()
     }, []);
 
     const findAndSetSelectedOption = (question, questionId, optionId) => {
@@ -59,16 +60,19 @@ const Quiz = () => {
                 <div key={question.id}>
                     <h2>{question.text}</h2>
                     {
-                        question.options.map(option => (
-                            <QuestionOption
-                                onClick={setAnswer}
-                                currentQuestion={question}
-                                optionId={option.id}
-                                key={option.id}
-                            >
-                                {option.text}
-                            </QuestionOption>
-                        ))
+                        question.options.map(option => {
+                            const selected = question.selectedOption === option.id
+
+                            return (
+                                <div
+                                    onClick={() => setAnswer(question.id, option.id)}
+                                    style={{ color: selected ? 'green' : 'black' }}
+                                >
+                                    {option.text}
+                                </div>
+                            )
+
+                        })
                     }
                 </div>
             ))}
