@@ -13,7 +13,7 @@ const useQuiz = () => {
         }
     }, [questionsData]);
 
-    const setAnswer = (questionId, optionId) => {
+    const setSelectedOption = (questionId, optionId) => {
         setQuestions(questions.map((question) => findAndSetSelectedOption(question, questionId, optionId)))
     }
 
@@ -25,7 +25,7 @@ const useQuiz = () => {
         finishQuiz,
         score,
         questions,
-        setAnswer,
+        setSelectedOption,
     }
 }
 

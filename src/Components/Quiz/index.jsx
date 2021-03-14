@@ -6,7 +6,7 @@ import useQuiz from './useQuiz'
 import './index.css'
 
 const Quiz = () => {
-    const { questions, score, finishQuiz, setAnswer } = useQuiz()
+    const { questions, score, finishQuiz, setSelectedOption } = useQuiz()
 
     return (
         <div>
@@ -22,7 +22,7 @@ const Quiz = () => {
                     {
                         question.options.map(option => (
                             <QuestionOption
-                                onClick={setAnswer}
+                                onClick={setSelectedOption}
                                 currentQuestion={question}
                                 optionId={option.id}
                                 key={option.id}
